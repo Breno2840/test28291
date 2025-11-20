@@ -44,8 +44,8 @@ fun LemuroidSystemCard(
                 .background(
                     brush = Brush.verticalGradient(
                         colors = listOf(
-                            MaterialTheme.colorScheme.surface,
-                            MaterialTheme.colorScheme.secondaryContainer
+                            MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
+                            MaterialTheme.colorScheme.surfaceVariant
                         )
                     )
                 ),
