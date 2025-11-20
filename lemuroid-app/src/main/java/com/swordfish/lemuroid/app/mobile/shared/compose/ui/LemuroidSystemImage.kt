@@ -27,16 +27,15 @@ fun LemuroidSystemImage(system: MetaSystemInfo) {
             .background(systemColor),
         contentAlignment = Alignment.Center,
     ) {
-        // Efeito de Brilho Diagonal Forte (Vidro)
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
                     brush = Brush.linearGradient(
                         colors = listOf(
-                            Color.White.copy(alpha = 0.4f), // Canto superior esquerdo bem claro
-                            Color.Transparent,              // Meio transparente
-                            Color.Black.copy(alpha = 0.5f)  // Canto inferior direito escuro
+                            Color.White.copy(alpha = 0.4f),
+                            Color.Transparent,
+                            Color.Black.copy(alpha = 0.5f)
                         )
                     )
                 )
