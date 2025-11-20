@@ -30,7 +30,7 @@ jobs:
           keytool -genkeypair -v -keystore release.jks -storepass lemuroid -keypass lemuroid -alias lemuroid -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Lemuroid, OU=Dev, O=Lemuroid, L=, ST=, C=BR"
 
       - name: Run Clean Assemble
-        run: ./gradlew clean assembleFreeDynamicRelease --no-daemon
+        run: ./gradlew clean assembleFreeBundleRelease --no-daemon
 
       - name: List APKs
         run: |
