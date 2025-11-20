@@ -14,6 +14,14 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Show Git info
+        run: |
+          git --no-pager log -n 5 --pretty=oneline
+          git status --porcelain
+          git rev-parse --abbrev-ref HEAD
+          echo "Changed files in last commit:"
+          git show --name-only --pretty="" HEAD
+
       - name: set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -24,8 +32,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Run Assemble Artifact
-        run: ./gradlew assembleFreeDynamicDebug
+      - name: Run Clean Assemble
+        run: ./gradlew clean assembleFreeDynamicDebug --no-daemon
 
       - name: List APKs
         run: |
