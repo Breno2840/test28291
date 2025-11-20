@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -78,7 +80,7 @@ fun HomeScreen(
         },
         { permissionsLauncher.launch(Manifest.permission.RECORD_AUDIO) },
         { viewModel.changeLocalStorageFolder(context) },
-    ) // TODO COMPOSE We need to understand what's going to happen here.
+    )
 }
 
 @Composable
@@ -202,11 +204,17 @@ private fun HomeNotification(
     enabled: Boolean = true,
     onAction: () -> Unit = { },
 ) {
+    val colors = MaterialTheme.colorScheme
     ElevatedCard(
         modifier =
             Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
+        colors = CardDefaults.elevatedCardColors(
+            containerColor = colors.surfaceVariant,
+            contentColor = colors.onSurface
+        ),
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp)
     ) {
         Column(
             modifier =
@@ -218,15 +226,20 @@ private fun HomeNotification(
             Text(
                 text = stringResource(titleId),
                 style = MaterialTheme.typography.titleMedium,
+                color = colors.onSurface
             )
             Text(
                 text = stringResource(messageId),
                 style = MaterialTheme.typography.bodyMedium,
+                color = colors.onSurface.copy(alpha = 0.9f)
             )
             OutlinedButton(
                 modifier = Modifier.align(Alignment.End),
                 onClick = onAction,
                 enabled = enabled,
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = colors.primary
+                )
             ) {
                 Text(stringResource(id = actionId))
             }
