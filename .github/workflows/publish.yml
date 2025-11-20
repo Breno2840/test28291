@@ -27,11 +27,15 @@ jobs:
       - name: Run Assemble Artifact
         run: ./gradlew assembleFreeDynamicDebug
 
-      - name: Upload Artifact
+      - name: List APKs
+        run: |
+          find . -type f -name "*.apk" -print || true
+
+      - name: Upload APKs
         uses: actions/upload-artifact@v4
         with:
           name: apk
-          path: lemuroid-app/build/outputs/apk/freeDynamic/debug/lemuroid-app-free-dynamic-debug.apk
+          path: '**/*.apk'
 
   publish_apk:
     name: Publish APK on Github
@@ -47,12 +51,10 @@ jobs:
           name: apk
 
       - name: Create pre-release
-        uses: "marvinpinto/action-automatic-releases@latest"
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: true
-          automatic_release_tag: "latest-main"
-          title: "Development Build (Main)"
-          # Na v4, o download cria uma pasta com o nome do artefato (apk/).
-          # Por isso o caminho abaixo inclui "apk/".
-          files: apk/lemuroid-app-free-dynamic-debug.apk
+          automatic_release_tag: latest-main
+          title: Development Build (Main)
+          files: '**/*.apk'
