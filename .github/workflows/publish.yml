@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
       - name: set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'adopt'
@@ -28,7 +28,7 @@ jobs:
         run: ./gradlew assembleFreeDynamicDebug
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: apk
           path: lemuroid-app/build/outputs/apk/freeDynamic/debug/lemuroid-app-free-dynamic-debug.apk
@@ -37,10 +37,12 @@ jobs:
     name: Publish APK on Github
     needs: [ build ]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: apk
 
@@ -51,4 +53,6 @@ jobs:
           prerelease: true
           automatic_release_tag: "latest-main"
           title: "Development Build (Main)"
-          files: lemuroid-app-free-dynamic-debug.apk
+          # Na v4, o download cria uma pasta com o nome do artefato (apk/).
+          # Por isso o caminho abaixo inclui "apk/".
+          files: apk/lemuroid-app-free-dynamic-debug.apk
